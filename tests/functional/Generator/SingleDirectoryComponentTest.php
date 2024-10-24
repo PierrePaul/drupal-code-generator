@@ -35,52 +35,57 @@ final class SingleDirectoryComponentTest extends GeneratorTestBase {
       'A text for CTA button.',
       'String',
       'No',
+      'Yes',
+      'My slot',
+      '',
+      'Some description for slot.',
+      'No'
     ];
     $this->execute(SingleDirectoryComponent::class, $input);
 
     $expected_display = <<< 'TXT'
-    
+
      Welcome to sdc generator!
     –––––––––––––––––––––––––––
-    
+
      Theme machine name:
-     ➤ 
-    
+     ➤
+
      Theme name [Foo]:
-     ➤ 
-    
+     ➤
+
      Component name:
-     ➤ 
-    
+     ➤
+
      Component machine name [bar]:
-     ➤ 
-    
+     ➤
+
      Component description (optional):
-     ➤ 
-    
-     Library dependencies (optional). [Example: core/once]:
-     ➤ 
+     ➤
 
      Library dependencies (optional). [Example: core/once]:
-     ➤ 
-    
-     Needs CSS? [Yes]:
-     ➤ 
-    
-     Needs JS? [Yes]:
-     ➤ 
-    
-     Needs component props? [Yes]:
-     ➤ 
+     ➤
+
+     Library dependencies (optional). [Example: core/once]:
+     ➤
+
+     Need CSS? [Yes]:
+     ➤
+
+     Need JS? [Yes]:
+     ➤
+
+     Need component props? [Yes]:
+     ➤
 
      Prop title:
-     ➤ 
+     ➤
 
      Prop machine name [cta_text]:
-     ➤ 
+     ➤
 
      Prop description (optional):
-     ➤ 
+     ➤
 
      Prop type [String]:
       [1] String
@@ -89,10 +94,25 @@ final class SingleDirectoryComponentTest extends GeneratorTestBase {
       [4] Array
       [5] Object
       [6] Always null
-     ➤ 
+     ➤
 
      Add another prop? [Yes]:
-     ➤ 
+     ➤
+
+     Need slots? [Yes]:
+     ➤
+
+     Slot title:
+     ➤
+
+     Slot machine name [my_slot]:
+     ➤
+
+     Slot description (optional):
+     ➤
+
+     Add another slot? [Yes]:
+     ➤
 
      The following directories and files have been created or updated:
     –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
