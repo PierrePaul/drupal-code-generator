@@ -49,8 +49,7 @@ final class SingleDirectoryComponentTest extends GeneratorTestBase {
     –––––––––––––––––––––––––––
     
      Theme machine name:
-     ➤ foo
-
+     ➤ 
     
      Theme name [Foo]:
      ➤ 
@@ -65,7 +64,7 @@ final class SingleDirectoryComponentTest extends GeneratorTestBase {
      ➤ 
     
      Library dependencies (optional). [Example: core/once]:
-     ➤ core/drupal
+     ➤ 
 
      Library dependencies (optional). [Example: core/once]:
      ➤ 
@@ -95,8 +94,7 @@ final class SingleDirectoryComponentTest extends GeneratorTestBase {
       [4] Array
       [5] Object
       [6] Always null
-     ➤ String
-
+     ➤ 
 
      Add another prop? [Yes]:
      ➤ 
