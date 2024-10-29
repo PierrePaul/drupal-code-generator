@@ -39,7 +39,7 @@ final class SingleDirectoryComponentTest extends GeneratorTestBase {
       'My slot',
       '',
       'Some description for slot.',
-      'No'
+      'No',
     ];
     $this->execute(SingleDirectoryComponent::class, $input);
 
