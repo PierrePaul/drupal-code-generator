@@ -101,7 +101,7 @@ final class SingleDirectoryComponentTest extends GeneratorTestBase {
      • components/bar/bar.js
      • components/bar/bar.twig
      • components/bar/README.md
-     • components/bar/thumbnail.jpg
+     • components/bar/thumbnail.png
 
     TXT;
     $this->assertDisplay($expected_display);
@@ -111,7 +111,7 @@ final class SingleDirectoryComponentTest extends GeneratorTestBase {
     $this->assertGeneratedFile('components/bar/bar.js');
     $this->assertGeneratedFile('components/bar/bar.twig');
     $this->assertGeneratedFile('components/bar/README.md');
-    $this->assertGeneratedFile('components/bar/thumbnail.jpg');
+    $this->assertGeneratedFile('components/bar/thumbnail.png');
   }
 
 }
