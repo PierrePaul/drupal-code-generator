@@ -35,6 +35,11 @@ final class SingleDirectoryComponentTest extends GeneratorTestBase {
       'A text for CTA button.',
       'String',
       'No',
+      'Yes',
+      'My slot',
+      '',
+      'Some description for slot.',
+      'No',
     ];
     $this->execute(SingleDirectoryComponent::class, $input);
 
@@ -64,13 +69,13 @@ final class SingleDirectoryComponentTest extends GeneratorTestBase {
      Library dependencies (optional). [Example: core/once]:
      ➤ 
     
-     Needs CSS? [Yes]:
+     Need CSS? [Yes]:
      ➤ 
     
-     Needs JS? [Yes]:
+     Need JS? [Yes]:
      ➤ 
     
-     Needs component props? [Yes]:
+     Need component props? [Yes]:
      ➤ 
 
      Prop title:
@@ -92,6 +97,21 @@ final class SingleDirectoryComponentTest extends GeneratorTestBase {
      ➤ 
 
      Add another prop? [Yes]:
+     ➤ 
+
+     Need slots? [Yes]:
+     ➤ 
+
+     Slot title:
+     ➤ 
+
+     Slot machine name [my_slot]:
+     ➤ 
+
+     Slot description (optional):
+     ➤ 
+
+     Add another slot? [Yes]:
      ➤ 
 
      The following directories and files have been created or updated:

@@ -14,3 +14,7 @@ props:
       description: A text for CTA button.
       # @todo Add examples here.
       examples: []
+slots:
+  my_slot:
+    title: My slot
+    description: Some description for slot.
