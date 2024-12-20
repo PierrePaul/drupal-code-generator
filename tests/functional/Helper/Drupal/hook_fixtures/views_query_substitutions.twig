@@ -10,7 +10,7 @@ declare(strict_types=1);
 /**
  * Implements hook_views_query_substitutions().
  */
-function {{ machine_name }}_views_query_substitutions(ViewExecutable $view) {
+function {{ machine_name }}_views_query_substitutions(ViewExecutable $view): array {
   // Example from views_views_query_substitutions().
   return [
     '***CURRENT_VERSION***' => \Drupal::VERSION,

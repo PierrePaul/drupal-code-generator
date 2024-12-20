@@ -229,7 +229,7 @@ final class PhpStormMetaTest extends GeneratorTestBase {
     self::assertStringContainsString('typed_data_manager__plugin_ids', $generated_content);
     self::assertStringContainsString('validation.constraint__plugin_ids', $generated_content);
 
-    self::assertSame(51, \substr_count($generated_content, 'registerArgumentsSet'));
+    self::assertSame(52, \substr_count($generated_content, 'registerArgumentsSet'));
   }
 
   /**
