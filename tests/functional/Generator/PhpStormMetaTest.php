@@ -38,6 +38,7 @@ final class PhpStormMetaTest extends GeneratorTestBase {
      • .phpstorm.meta.php/field_definitions.php
      • .phpstorm.meta.php/fields.php
      • .phpstorm.meta.php/file_system.php
+     • .phpstorm.meta.php/hooks.php
      • .phpstorm.meta.php/miscellaneous.php
      • .phpstorm.meta.php/permissions.php
      • .phpstorm.meta.php/plugins.php
@@ -71,6 +72,7 @@ final class PhpStormMetaTest extends GeneratorTestBase {
     $this->assertMiscellaneous();
     $this->assertRoles();
     $this->assertRoutes();
+    $this->assertHooks();
   }
 
   /**
@@ -712,6 +714,46 @@ final class PhpStormMetaTest extends GeneratorTestBase {
       expectedArguments(\Symfony\Component\Routing\Route::getDefault(), 0, argumentsSet('routes.route_defaults'));
       expectedArguments(\Symfony\Component\Routing\Route::setDefault(), 0, argumentsSet('routes.route_defaults'));
     PHP;
+    self::assertStringContainsString($arguments, $generated_content);
+  }
+
+  private function assertHooks(): void {
+    $generated_content = $this->getGeneratedContent('.phpstorm.meta.php/hooks.php');
+
+    $hooks = <<< 'PHP'
+      <?php
+
+      declare(strict_types=1);
+
+      namespace PHPSTORM_META {
+
+        registerArgumentsSet('hooks',
+          'query_alter',
+          'query_TAG_alter',
+          'schema',
+          'entity_access',
+          'ENTITY_TYPE_access',
+          'entity_create_access',
+          'ENTITY_TYPE_create_access',
+          'entity_type_build',
+      PHP;
+    self::assertStringContainsString($hooks, $generated_content);
+
+    $modules = <<< 'PHP'
+        registerArgumentsSet('modules',
+          'announcements_feed',
+          'automated_cron',
+          'big_pipe',
+          'block',
+          'block_content',
+          'breakpoint',
+      PHP;
+    self::assertStringContainsString($modules, $generated_content);
+
+    $arguments = <<< 'PHP'
+        expectedArguments(\Drupal\Core\Hook\Attribute\Hook::__construct(), 0, argumentsSet('hooks'));
+        expectedArguments(\Drupal\Core\Hook\Attribute\Hook::__construct(), 2, argumentsSet('modules'));
+      PHP;
     self::assertStringContainsString($arguments, $generated_content);
   }
 

@@ -68,6 +68,7 @@ final class PhpStormMeta extends BaseGenerator implements ContainerInjectionInte
     $assets[] = (new FieldDefinitions($service('entity_type.manager'), $service('plugin.manager.field.field_type')))();
     $assets[] = (new Fields($service('entity_type.manager'), $service('entity_field.manager'), $entity_interface))();
     $assets[] = (new FileSystem())();
+    $assets[] = (new Hooks($this->getHelper('hook_info'), $this->getHelper('module_info')))();
     $assets[] = (new Miscellaneous())();
     $assets[] = (new Permissions($this->getHelper('permission_info')))();
     $assets[] = (new Plugins($this->getHelper('service_info')))();
