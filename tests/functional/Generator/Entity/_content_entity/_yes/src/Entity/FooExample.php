@@ -79,8 +79,8 @@ use Drupal\views\EntityViewsData;
   data_table: 'foo_example_field_data',
   revision_table: 'foo_example_revision',
   revision_data_table: 'foo_example_field_revision',
-  translatable: true,
-  show_revision_ui: true,
+  translatable: TRUE,
+  show_revision_ui: TRUE,
   label_count: [
     'singular' => '@count examples',
     'plural' => '@count examples',
