@@ -4,83 +4,94 @@ declare(strict_types=1);
 
 namespace Drupal\foo\Entity;
 
+use Drupal\Core\Entity\Attribute\ContentEntityType;
+use Drupal\Core\Entity\ContentEntityDeleteForm;
 use Drupal\Core\Entity\EntityChangedTrait;
 use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Entity\EntityTypeInterface;
+use Drupal\Core\Entity\Form\DeleteMultipleForm;
+use Drupal\Core\Entity\Form\RevisionDeleteForm;
+use Drupal\Core\Entity\Form\RevisionRevertForm;
 use Drupal\Core\Entity\RevisionableContentEntityBase;
+use Drupal\Core\Entity\Routing\AdminHtmlRouteProvider;
+use Drupal\Core\Entity\Routing\RevisionHtmlRouteProvider;
 use Drupal\Core\Field\BaseFieldDefinition;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
+use Drupal\foo\FooExampleAccessControlHandler;
 use Drupal\foo\FooExampleInterface;
+use Drupal\foo\FooExampleListBuilder;
+use Drupal\foo\Form\FooExampleForm;
 use Drupal\user\EntityOwnerTrait;
+use Drupal\views\EntityViewsData;
 
 /**
  * Defines the example entity class.
- *
- * @ContentEntityType(
- *   id = "foo_example",
- *   label = @Translation("Example"),
- *   label_collection = @Translation("Examples"),
- *   label_singular = @Translation("example"),
- *   label_plural = @Translation("examples"),
- *   label_count = @PluralTranslation(
- *     singular = "@count examples",
- *     plural = "@count examples",
- *   ),
- *   bundle_label = @Translation("Example type"),
- *   handlers = {
- *     "list_builder" = "Drupal\foo\FooExampleListBuilder",
- *     "views_data" = "Drupal\views\EntityViewsData",
- *     "access" = "Drupal\foo\FooExampleAccessControlHandler",
- *     "form" = {
- *       "add" = "Drupal\foo\Form\FooExampleForm",
- *       "edit" = "Drupal\foo\Form\FooExampleForm",
- *       "delete" = "Drupal\Core\Entity\ContentEntityDeleteForm",
- *       "delete-multiple-confirm" = "Drupal\Core\Entity\Form\DeleteMultipleForm",
- *       "revision-delete" = \Drupal\Core\Entity\Form\RevisionDeleteForm::class,
- *       "revision-revert" = \Drupal\Core\Entity\Form\RevisionRevertForm::class,
- *     },
- *     "route_provider" = {
- *       "html" = "Drupal\Core\Entity\Routing\AdminHtmlRouteProvider",
- *       "revision" = \Drupal\Core\Entity\Routing\RevisionHtmlRouteProvider::class,
- *     },
- *   },
- *   base_table = "foo_example",
- *   data_table = "foo_example_field_data",
- *   revision_table = "foo_example_revision",
- *   revision_data_table = "foo_example_field_revision",
- *   show_revision_ui = TRUE,
- *   translatable = TRUE,
- *   admin_permission = "administer foo_example types",
- *   entity_keys = {
- *     "id" = "id",
- *     "revision" = "revision_id",
- *     "langcode" = "langcode",
- *     "bundle" = "bundle",
- *     "label" = "label",
- *     "uuid" = "uuid",
- *     "owner" = "uid",
- *   },
- *   revision_metadata_keys = {
- *     "revision_user" = "revision_uid",
- *     "revision_created" = "revision_timestamp",
- *     "revision_log_message" = "revision_log",
- *   },
- *   links = {
- *     "collection" = "/admin/content/example",
- *     "add-form" = "/example/add/{foo_example_type}",
- *     "add-page" = "/example/add",
- *     "canonical" = "/example/{foo_example}",
- *     "edit-form" = "/example/{foo_example}/edit",
- *     "delete-form" = "/example/{foo_example}/delete",
- *     "delete-multiple-form" = "/admin/content/example/delete-multiple",
- *     "revision" = "/example/{foo_example}/revision/{foo_example_revision}/view",
- *     "revision-delete-form" = "/example/{foo_example}/revision/{foo_example_revision}/delete",
- *     "revision-revert-form" = "/example/{foo_example}/revision/{foo_example_revision}/revert",
- *     "version-history" = "/example/{foo_example}/revisions",
- *   },
- *   bundle_entity_type = "foo_example_type",
- *   field_ui_base_route = "entity.foo_example_type.edit_form",
- * )
  */
+#[ContentEntityType(
+  id: 'foo_example',
+  label: new TranslatableMarkup('Example'),
+  label_collection: new TranslatableMarkup('Examples'),
+  label_singular: new TranslatableMarkup('example'),
+  label_plural: new TranslatableMarkup('examples'),
+  entity_keys: [
+    'id' => 'id',
+    'revision' => 'revision_id',
+    'langcode' => 'langcode',
+    'bundle' => 'bundle',
+    'label' => 'label',
+    'owner' => 'uid',
+    'uuid' => 'uuid',
+  ],
+  handlers: [
+    'list_builder' => FooExampleListBuilder::class,
+    'views_data' => EntityViewsData::class,
+    'access' => FooExampleAccessControlHandler::class,
+    'form' => [
+      'add' => FooExampleForm::class,
+      'edit' => FooExampleForm::class,
+      'delete' => ContentEntityDeleteForm::class,
+      'delete-multiple-confirm' => DeleteMultipleForm::class,
+      'revision-delete' => RevisionDeleteForm::class,
+      'revision-revert' => RevisionRevertForm::class,
+    ],
+    'route_provider' => [
+      'html' => AdminHtmlRouteProvider::class,
+      'revision' => RevisionHtmlRouteProvider::class,
+    ],
+  ],
+  links: [
+    'collection' => '/admin/content/example',
+    'add-form' => '/example/add/{foo_example_type}',
+    'add-page' => '/example/add',
+    'canonical' => '/example/{foo_example}',
+    'edit-form' => '/example/{foo_example}/edit',
+    'delete-form' => '/example/{foo_example}/delete',
+    'delete-multiple-form' => '/admin/content/example/delete-multiple',
+    'revision' => '/example/{foo_example}/revision/{foo_example_revision}/view',
+    'revision-delete-form' => '/example/{foo_example}/revision/{foo_example_revision}/delete',
+    'revision-revert-form' => '/example/{foo_example}/revision/{foo_example_revision}/revert',
+    'version-history' => '/example/{foo_example}/revisions',
+  ],
+  admin_permission: 'administer foo_example types',
+  bundle_entity_type: 'foo_example_type',
+  bundle_label: new TranslatableMarkup('Example type'),
+  base_table: 'foo_example',
+  data_table: 'foo_example_field_data',
+  revision_table: 'foo_example_revision',
+  revision_data_table: 'foo_example_field_revision',
+  translatable: TRUE,
+  show_revision_ui: TRUE,
+  label_count: [
+    'singular' => '@count examples',
+    'plural' => '@count examples',
+  ],
+  field_ui_base_route: 'entity.foo_example_type.edit_form',
+  revision_metadata_keys: [
+    'revision_user' => 'revision_uid',
+    'revision_created' => 'revision_timestamp',
+    'revision_log_message' => 'revision_log',
+  ],
+)]
 final class FooExample extends RevisionableContentEntityBase implements FooExampleInterface {
 
   use EntityChangedTrait;
